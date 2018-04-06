@@ -57,19 +57,18 @@ const renderShoppingList = () => {
   $('.js-shopping-list').html(createHTMLList(STORE.shoppingList));
 };
 
-// USER STORY 2: User should be able to add item to shopping list
 const handleAddingItems = () => {
   $('#js-shopping-list-form').submit(function(event){
     event.preventDefault();
     const newItem = $('.js-shopping-list-entry').val();
     STORE.shoppingList.push({name: newItem, checked: false, time: new Date(Date.now())});
     console.log(newItem);
+    $('.js-shopping-list-entry').val('');
     renderShoppingList();
   });
   console.log('`handleAddingItems` works like a charm');
 };
-// USER STORY 3: User should be able to check items on the list &
-// USER STORY 4: User should be able to delete items from the list
+
 // Get index of checked or deleted item
 const getIndexOfItem = (event) => $(event.target).closest('.js-item-index-element').data('itemIndex');
 

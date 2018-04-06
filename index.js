@@ -18,14 +18,17 @@ const STORE = {
 const createHTMLItem = (item, index) => `
   <li class="js-item-index-element" data-item-index="${index}" data-id="${item.id}">
     <span class="shopping-item js-shopping-item ${item.checked ? 'shopping-item__checked' : ''}">${item.name}</span>
-      <div class="shopping-item-controls">
-        <button class="shopping-item-toggle js-item-toggle">
-          <span class="button-label">check</span>
-        </button>
-        <button class="shopping-item-delete js-item-delete">
-          <span class="button-label">delete</span>
-        </button>
-      </div>
+    <div class="shopping-item-controls">
+      <button class="shopping-item-toggle js-item-toggle">
+        <span class="button-label">check</span>
+      </button>
+      <button class="shopping-item-delete js-item-delete">
+        <span class="button-label">delete</span>
+      </button>
+      <button class="shopping-item-edit js-item-edit">
+        <span class="button-label">edit</span>
+      </button>
+    </div>
   </li>
 `;
 
@@ -101,6 +104,52 @@ function handleDeletingItems(){
   });
 }
 
+function handleEditItem(){
+  $('.js-shopping-list').on('click', '.js-item-edit', (event) => {
+    console.log('edit clicked');
+    event.preventDefault();
+    $(event.target).closest('li').html(`
+    
+      <span class="shopping-item js-shopping-item}">
+        <form id="js-name-edit-form">
+          <input type="text" name="new-name-entry" class="js-new-name-entry" placeholder="e.g., broccoli">
+          <button type="submit">submit</button>
+        </form>
+      </span>
+      
+      <div class="shopping-item-controls">
+      <button class="shopping-item-toggle js-item-toggle">
+        <span class="button-label">check</span>
+      </button>
+      <button class="shopping-item-delete js-item-delete">
+        <span class="button-label">delete</span>
+      </button>
+      <button class="shopping-item-edit js-item-edit">
+        <span class="button-label">edit</span>
+      </button>
+      </div>
+    
+    `);
+  });
+  //handleSubmitNewName();
+}
+
+function handleSubmitNewName(){
+  $(document).on('submit', '#js-name-edit-form', function(event){
+    event.preventDefault();
+    const newName = $('.js-new-name-entry').val();
+    const IDToChange = $(event.target).closest('li').data('id');
+    
+    console.log(`'${newName}' submitted to ID:${IDToChange}`);
+    
+    STORE.allItems[getIndexFromID(STORE.allItems, IDToChange)].name = newName;
+
+    console.log(getIndexFromID(STORE.allItems, IDToChange));
+
+    renderShoppingList();
+  });
+}
+
 // handle shopping list
 const handleShoppingList = () => {
   renderShoppingList();
@@ -108,6 +157,8 @@ const handleShoppingList = () => {
   handleCheckingItems();
   handleDeletingItems();
   handleFilterChecked();
+  handleSubmitNewName();
+  handleEditItem();
 };
 
 // call handle when DOM is ready

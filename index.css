@@ -6,11 +6,11 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
-button, input[type="text"] {
-  padding: 5px;
+div{
+  padding: 10px 0 5px 0;
 }
 
-div{
+button, input[type="text"] {
   padding: 5px;
 }
 

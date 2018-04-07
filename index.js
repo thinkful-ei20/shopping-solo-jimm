@@ -26,6 +26,7 @@ const STORE = {
 const createHTMLItem = (item, index) => `
   <li class="js-item-index-element" data-item-index="${index}" data-id="${item.id}">
     <span class="shopping-item js-shopping-item ${item.checked ? 'shopping-item__checked' : ''}">${item.name}</span>
+    <span class="time-stamp">added: ${item.time}</span>
     <div class="shopping-item-controls">
       <button class="shopping-item-toggle js-item-toggle">
         <span class="button-label">check</span>

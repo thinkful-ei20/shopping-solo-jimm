@@ -58,3 +58,9 @@ button:hover {
 .shopping-item__checked {
   text-decoration: line-through;
 }
+
+.time-stamp{
+  color: grey;
+  font-size: 40%;
+  text-decoration: italic; 
+}

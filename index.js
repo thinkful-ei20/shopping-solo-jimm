@@ -29,7 +29,7 @@ function createHTMLItem(item, index){
   const m = Math.floor((milliSince - h*3600000)/60000);
   return `<li class="js-item-index-element" data-item-index="${index}" data-id="${item.id}">
     <span class="shopping-item js-shopping-item ${item.checked ? 'shopping-item__checked' : ''}">${item.name}</span>
-    <span class="time-stamp">${h}h ${m}m ago</span>
+    <span class="time-stamp">${h > 0 ? h+'h '+m+'m' : m+'m'} ago</span>
     <div class="shopping-item-controls">
       <button class="shopping-item-toggle js-item-toggle">
         <span class="button-label">check</span>

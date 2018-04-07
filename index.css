@@ -61,6 +61,6 @@ button:hover {
 
 .time-stamp{
   color: grey;
-  font-size: 40%;
-  text-decoration: italic; 
+  font-size: 60%;
+  font-style: italic; 
 }

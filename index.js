@@ -2,16 +2,24 @@
 // USER STORY 1: Shopping list should be rendered to page
 const STORE = {
   allItems: [
-    {name: 'apples', id: 1, checked: false},
-    {name: 'oranges', id: 2, checked: false},
-    {name: 'milk', id: 3, checked: true},
-    {name: 'bread', id: 4, checked: false}
+    {name: 'apples', id: 1, checked: false, time: new Date(Date.now() - 4)},
+    {name: 'oranges', id: 2, checked: false, time: new Date(Date.now() - 3)},
+    {name: 'milk', id: 3, checked: false, time: new Date(Date.now() - 2)},
+    {name: 'bread', id: 4, checked: false, time: new Date(Date.now() - 1)}
   ],
   getToDisplayItems: function(){
-    return this.filterChecked ? this.allItems.filter(item => item.checked === false) : this.allItems;
+    let toReturn = this.allItems;
+    if(this.searchFilter !== ''){
+      const searchString = this.searchFilter;
+      toReturn = toReturn.filter(function(item){
+        return item.name.includes(searchString);
+      });
+    }
+    return this.filterChecked ? toReturn.filter(item => item.checked === false) : toReturn;
   },
   totalItems: 4,
   filterChecked: false,
+  searchFilter: '',
 };
 
 // Creates an html <li> element
@@ -150,8 +158,17 @@ function handleSubmitNewName(){
   });
 }
 
+function handleSearch(){
+  $('.js-search-entry').keyup(function(event){
+    STORE.searchFilter = $(event.target).val();
+    console.log(`key pressed: ${event.key}`);
+    console.log(`search: ${STORE.searchFilter}`);
+    renderShoppingList();
+  });
+}
+
 // handle shopping list
-const handleShoppingList = () => {
+function handleShoppingList(){
   renderShoppingList();
   handleAddingItems();
   handleCheckingItems();
@@ -159,6 +176,7 @@ const handleShoppingList = () => {
   handleFilterChecked();
   handleSubmitNewName();
   handleEditItem();
+  handleSearch();
 };
 
 // call handle when DOM is ready

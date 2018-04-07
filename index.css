@@ -7,8 +7,12 @@ body {
   margin-left: 15px;
 }
 
-div{
+div, form{
   padding: 10px 0 5px 0;
+}
+
+label{
+  padding: 5px 0 5px 0;
 }
 
 button, input[type="text"] {

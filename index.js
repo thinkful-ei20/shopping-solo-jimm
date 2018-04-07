@@ -2,10 +2,10 @@
 // USER STORY 1: Shopping list should be rendered to page
 const STORE = {
   allItems: [
-    {name: 'apples', id: 1, checked: false, time: new Date(Date.now() - 4)},
-    {name: 'oranges', id: 2, checked: false, time: new Date(Date.now() - 3)},
-    {name: 'milk', id: 3, checked: false, time: new Date(Date.now() - 2)},
-    {name: 'bread', id: 4, checked: false, time: new Date(Date.now() - 1)}
+    {name: 'apples', id: 1, checked: false, time: new Date(Date.now() - 4000000)},
+    {name: 'oranges', id: 2, checked: false, time: new Date(Date.now() - 3000000)},
+    {name: 'milk', id: 3, checked: false, time: new Date(Date.now() - 200000)},
+    {name: 'bread', id: 4, checked: false, time: new Date(Date.now() - 100000)}
   ],
   getToDisplayItems: function(){
     let toReturn = this.allItems;
@@ -23,10 +23,13 @@ const STORE = {
 };
 
 // Creates an html <li> element
-const createHTMLItem = (item, index) => `
-  <li class="js-item-index-element" data-item-index="${index}" data-id="${item.id}">
+function createHTMLItem(item, index){ 
+  const milliSince = Date.now() - item.time;
+  const h = Math.floor(milliSince/ 3600000);
+  const m = Math.floor((milliSince - h*3600000)/60000);
+  return `<li class="js-item-index-element" data-item-index="${index}" data-id="${item.id}">
     <span class="shopping-item js-shopping-item ${item.checked ? 'shopping-item__checked' : ''}">${item.name}</span>
-    <span class="time-stamp">added: ${item.time}</span>
+    <span class="time-stamp">${h}h ${m}m ago</span>
     <div class="shopping-item-controls">
       <button class="shopping-item-toggle js-item-toggle">
         <span class="button-label">check</span>
@@ -38,8 +41,8 @@ const createHTMLItem = (item, index) => `
         <span class="button-label">edit</span>
       </button>
     </div>
-  </li>
-`;
+  </li>`;
+}
 
 // Creates an html item for each item in the STORE
 const createHTMLList = (database) => database.map((item, index) => createHTMLItem(item, index)).join('');

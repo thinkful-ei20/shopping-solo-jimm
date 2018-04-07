@@ -63,8 +63,9 @@ function handleAddingItems(){
     event.preventDefault();
     const newItem = $('.js-shopping-list-entry').val();
     STORE.totalItems++;
-    STORE.allItems.push({name: newItem, id: STORE.totalItems, checked: false});
+    STORE.allItems.push({name: newItem.toLowerCase(), id: STORE.totalItems, checked: false});
     console.log(newItem);
+    this.value = ''; //Why doesn't this clear the add new item text input
     renderShoppingList();
   });
   console.log('handleAddingItems() ran');
@@ -150,7 +151,7 @@ function handleSubmitNewName(){
     
     console.log(`'${newName}' submitted to ID:${IDToChange}`);
     
-    STORE.allItems[getIndexFromID(STORE.allItems, IDToChange)].name = newName;
+    STORE.allItems[getIndexFromID(STORE.allItems, IDToChange)].name = newName.toLowerCase();
 
     console.log(getIndexFromID(STORE.allItems, IDToChange));
 
@@ -160,7 +161,7 @@ function handleSubmitNewName(){
 
 function handleSearch(){
   $('.js-search-entry').keyup(function(event){
-    STORE.searchFilter = $(event.target).val();
+    STORE.searchFilter = $(event.target).val().toLocaleLowerCase();
     console.log(`key pressed: ${event.key}`);
     console.log(`search: ${STORE.searchFilter}`);
     renderShoppingList();
@@ -177,7 +178,7 @@ function handleShoppingList(){
   handleSubmitNewName();
   handleEditItem();
   handleSearch();
-};
+}
 
 // call handle when DOM is ready
 $(handleShoppingList);

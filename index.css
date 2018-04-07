@@ -16,7 +16,7 @@ label{
 }
 
 button, input[type="text"] {
-  padding: 5px;
+  padding: 5px 0 5px 0;
 }
 
 button:hover {

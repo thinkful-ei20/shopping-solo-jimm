@@ -2,10 +2,6 @@
 
 
 
-
-
-
-
 //functions for sorting the list later
 function setSortBy(by){
   STORE.sortBy = by;

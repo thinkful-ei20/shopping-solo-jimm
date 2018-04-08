@@ -28,7 +28,7 @@ function createHTMLItem(item, index){
   const h = Math.floor(milliSince/ 3600000);
   const m = Math.floor((milliSince - h*3600000)/60000);
   return `<li class="js-item-index-element" data-item-index="${index}" data-id="${item.id}">
-    <span class="shopping-item js-shopping-item ${item.checked ? 'shopping-item__checked' : ''}">${item.name}   <span class="quantity">x${item.qty}</span></span>
+    <span class="shopping-item js-shopping-item ${item.checked ? 'shopping-item__checked' : ''}">${item.name}   <span class="quantity">${item.qty > 0  ? 'x'+item.qty : ''}</span></span>
     <span class="time-stamp">${h > 0 ? h+'h '+m+'m' : m+'m'} ago</span>
     <div class="shopping-item-controls">
       <button class="shopping-item-toggle js-item-toggle">
@@ -65,10 +65,11 @@ function handleFilterChecked(){
 function handleAddingItems(){
   $('#js-shopping-list-form').submit(function(event){
     event.preventDefault();
-    const newItem = $('.js-shopping-list-entry').val();
+    const newItemName = $('.js-shopping-list-entry').val();
+    const newItemQty = $('.js-new-item-qty').val();
     STORE.totalItems++;
-    STORE.allItems.push({name: newItem.toLowerCase(), id: STORE.totalItems, checked: false});
-    console.log(newItem);
+    STORE.allItems.push({name: newItemName.toLowerCase(), id: STORE.totalItems, qty: newItemQty, checked: false, time: new Date(Date.now() - 1)});
+    console.log(newItemQty+' '+newItemName);
     this.value = ''; //Why doesn't this clear the add new item text input
     renderShoppingList();
   });
@@ -126,6 +127,7 @@ function handleEditItem(){
       <span class="shopping-item js-shopping-item}">
         <form id="js-name-edit-form">
           <input type="text" name="new-name-entry" class="js-new-name-entry" placeholder="e.g., broccoli">
+          <input type="number" name="shopping-list-entry-qty" class="js-new-qty-entry" placeholder="qty">
           <button type="submit">submit</button>
         </form>
       </span>
@@ -151,11 +153,13 @@ function handleSubmitNewName(){
   $(document).on('submit', '#js-name-edit-form', function(event){
     event.preventDefault();
     const newName = $('.js-new-name-entry').val();
+    const newQty = $('.js-new-qty-entry').val();
     const IDToChange = $(event.target).closest('li').data('id');
     
-    console.log(`'${newName}' submitted to ID:${IDToChange}`);
+    console.log(`'${newName} x${newQty}' submitted to ID:${IDToChange}`);
     
     STORE.allItems[getIndexFromID(STORE.allItems, IDToChange)].name = newName.toLowerCase();
+    STORE.allItems[getIndexFromID(STORE.allItems, IDToChange)].qty = newQty;
 
     console.log(getIndexFromID(STORE.allItems, IDToChange));
 

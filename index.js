@@ -66,7 +66,7 @@ function handleAddingItems(){
   $('#js-shopping-list-form').submit(function(event){
     event.preventDefault();
     const newItemName = $('.js-shopping-list-entry').val();
-    const newItemQty = $('.js-new-item-qty').val();
+    const newItemQty = $('.js-new-item-qty').val() > 0 ? $('.js-new-item-qty').val() : false;
     STORE.totalItems++;
     STORE.allItems.push({name: newItemName.toLowerCase(), id: STORE.totalItems, qty: newItemQty, checked: false, time: new Date(Date.now() - 1)});
     console.log(newItemQty+' '+newItemName);
@@ -122,6 +122,7 @@ function handleEditItem(){
   $('.js-shopping-list').on('click', '.js-item-edit', (event) => {
     console.log('edit clicked');
     event.preventDefault();
+    const currID = $(event.target).closest('li').data('id');
     $(event.target).closest('li').html(`
     
       <span class="shopping-item js-shopping-item}">
@@ -144,7 +145,10 @@ function handleEditItem(){
       </button>
       </div>
     
-    `);
+    `
+    );
+    $('.js-new-name-entry').val(STORE.allItems[getIndexFromID(STORE.allItems, currID)].name);
+    $('.js-new-qty-entry').val(STORE.allItems[getIndexFromID(STORE.allItems, currID)].qty);
   });
   //handleSubmitNewName();
 }
@@ -153,7 +157,7 @@ function handleSubmitNewName(){
   $(document).on('submit', '#js-name-edit-form', function(event){
     event.preventDefault();
     const newName = $('.js-new-name-entry').val();
-    const newQty = $('.js-new-qty-entry').val();
+    const newQty = $('.js-new-qty-entry').val() > 0 ? $('.js-new-qty-entry').val() : false;
     const IDToChange = $(event.target).closest('li').data('id');
     
     console.log(`'${newName} x${newQty}' submitted to ID:${IDToChange}`);

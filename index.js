@@ -2,10 +2,10 @@
 // USER STORY 1: Shopping list should be rendered to page
 const STORE = {
   allItems: [
-    {name: 'apples', id: 1, checked: false, time: new Date(Date.now() - 4000000)},
-    {name: 'oranges', id: 2, checked: false, time: new Date(Date.now() - 3000000)},
-    {name: 'milk', id: 3, checked: false, time: new Date(Date.now() - 200000)},
-    {name: 'bread', id: 4, checked: false, time: new Date(Date.now() - 100000)}
+    {name: 'apples', id: 1, checked: false, qty: 3, time: new Date(Date.now() - 4000000)},
+    {name: 'oranges', id: 2, checked: false, qty: 2, time: new Date(Date.now() - 3000000)},
+    {name: 'milk', id: 3, checked: false, qty: false, time: new Date(Date.now() - 200000)},
+    {name: 'bread', id: 4, checked: false, qty: false, time: new Date(Date.now() - 100000)}
   ],
   getToDisplayItems: function(){
     let toReturn = this.allItems;

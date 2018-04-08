@@ -50,7 +50,7 @@ button:hover {
 .shopping-item {
   display: block;
   color: grey;
-  font-style: italic;
+  font-style: normal;
   font-size: 20px;
   margin-bottom: 5px;
 }
@@ -61,6 +61,11 @@ button:hover {
 
 .time-stamp{
   color: grey;
-  font-size: 60%;
+  font-size: 12px;
   font-style: italic; 
+}
+
+.quantity{
+  font-style: italic;
+  font-size: 16px;
 }

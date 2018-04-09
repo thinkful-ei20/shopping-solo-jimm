@@ -1,1 +1,1 @@
-yo, wassup?
+Shopping Solo Jimm
